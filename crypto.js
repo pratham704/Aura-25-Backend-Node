@@ -24,22 +24,27 @@ const base64Encoded = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(encr
 
 console.log(`Encoded response: ${base64Encoded}`);
 
-const decodedData = CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(base64Encoded));
-const parts = decodedData.split('.');
+// Decryption function
+function decrypt(base64Encoded, password) {
+    const decodedData = CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(base64Encoded));
+    const parts = decodedData.split('.');
 
-const saltFromEncoded = CryptoJS.enc.Hex.parse(parts[0]);
-const ivFromEncoded = CryptoJS.enc.Hex.parse(parts[1]);
-const ciphertextFromEncoded = parts[2];
+    const saltFromEncoded = CryptoJS.enc.Hex.parse(parts[0]);
+    const ivFromEncoded = CryptoJS.enc.Hex.parse(parts[1]);
+    const ciphertextFromEncoded = parts[2];
 
-const decryptedKey = CryptoJS.PBKDF2(password, saltFromEncoded, {
-    keySize: keySize,
-    iterations: iterations,
-});
+    const decryptedKey = CryptoJS.PBKDF2(password, saltFromEncoded, {
+        keySize: keySize,
+        iterations: iterations,
+    });
 
-const decryptedBytes = CryptoJS.AES.decrypt(ciphertextFromEncoded, decryptedKey, {
-    iv: ivFromEncoded,
-});
+    const decryptedBytes = CryptoJS.AES.decrypt(ciphertextFromEncoded, decryptedKey, {
+        iv: ivFromEncoded,
+    });
 
-const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
+    return decryptedBytes.toString(CryptoJS.enc.Utf8);
+}
 
+// Example usage of the decrypt function
+const decryptedText = decrypt(base64Encoded, password);
 console.log(`Decoded response: ${decryptedText}`);

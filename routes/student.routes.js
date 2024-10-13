@@ -52,8 +52,6 @@ router.post("/edit_profile/", authenticate, profile.editStudentProfile);
  */
 router.get("/", profile.getAllStudents);
 
-
-
 /**
  * @route   GET /api/students/health_check
  * @desc    Health check endpoint
