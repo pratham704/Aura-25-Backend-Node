@@ -1,5 +1,5 @@
 # Project Name
-
+AURA 25 - REST API's
 ## Overview
 
 This Node.js project follows a modular architecture to facilitate scalability and maintainability. It utilizes ES6 modules, environment-based configuration, and a comprehensive set of tools and libraries to build a robust application.
@@ -133,34 +133,9 @@ ALLOWED_ORIGINS=http://example.com,http://anotherdomain.com,http://localhost:300
 
 
 ```
-     
-7. **create a .env file for default database**
 
-```
-NODE_ENV=development
-
-
-DEV_PORT=4000
-DEV_MONGO_URI=mongodb+srv://prathamsiddannavar28:prathampooja123@cluster0.cnorbhc.mongodb.net/Mongo-Starter-db?retryWrites=true&w=majority
-
-
-PROD_PORT=80
-PROD_MONGO_URI=mongodb+srv://prod_user:password@cluster.mongodb.net/prod_db_name?retryWrites=true&w=majority
-
-TEST_PORT=3001
-TEST_MONGO_URI=mongodb+srv://test_user:password@cluster.mongodb.net/test_db_name?retryWrites=true&w=majority
-
-
-JWT_SECRET_KEY_DEV=devsecretkey
-JWT_SECRET_KEY_PROD=prodsecretkey
-JWT_SECRET_KEY_TEST=testsecretkey
-
-ALLOWED_ORIGINS=http://example.com,http://anotherdomain.com,http://localhost:3000,http://localhost:5000,http://localhost:3001,http://localhost:4000
-
-
-```
     
-8. **Start the server:**
+7. **Start the server:**
 
    ```bash
    npm start
