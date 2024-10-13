@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import studentRoutes from "./routes/student.routes.js";
+import adminRoutes from "./routes/admin.routes.js"
 import { connectDB, disconnectDB } from "./config/database.js";
 import morgan from "morgan";
 dotenv.config();
@@ -32,6 +33,7 @@ app.use((err, req, res, next) => {
 
 // Routes
 app.use("/api/entrysystem", studentRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get('/', (req, res) => {
     res.send('Connected to Db boss');

@@ -6,7 +6,6 @@ const __filename = fileURLToPath(
     import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to try loading .env from different levels upto 4 levels 
 const loadEnv = () => {
     let envPath;
     for (let i = 0; i <= 4; i++) {
