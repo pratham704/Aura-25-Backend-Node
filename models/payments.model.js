@@ -6,8 +6,8 @@ const { Schema } = mongoose;
 const paymentSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   amount: { type: Number, required: true },
-  paymentMethod: { type: String, required: true },  // e.g., 'Credit Card', 'PayPal'
-  status: { type: String, enum: ['Pending', 'Completed', 'Failed'], required: true }
+  paymentMethod: { type: String, required: true },
+  status: { type: String,  required: true }
 }, { timestamps: true });
 
 const Payment = mongoose.model('Payment', paymentSchema);

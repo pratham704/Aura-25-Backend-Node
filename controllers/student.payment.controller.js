@@ -35,6 +35,15 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
         };
         const response = await Cashfree.PGCreateOrder("2023-08-01", request);
         console.log(response.data);
+
+        const newPayment = new PaymentModel({
+            userId: id, // Reference to the user
+            amount: 300,         
+            paymentMethod: 'UPI',  
+            status: 'Initiated'   
+        });
+
+        await newPayment.save();
         success_response( res, 200 , "Order id generated" , response.data)
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
@@ -45,35 +54,16 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 const verifyOrder = async (req, res) => {
     try {
         const { orderId } = req.body;
-        const response = await Cashfree.PGOrderFetchPayments("2023-08-01", orderId);
+        const response = await Cashfree.PGFetchOrder("2023-08-01", orderId);
         console.log(response.data)
         const { id, email } = jwt.getData(req);
+        const paymentStatus = response.data.order_status; 
+        const data =  await PaymentModel.findOneAndUpdate(
+            { userId: id }, 
+            { status: paymentStatus }, 
+        );
 
-        const paymentStatus = response.status; 
-
-        const newPayment = new PaymentModel({
-            userId: id,  
-            amount: '300',
-            paymentMethod:'UPI' , 
-            status: paymentStatus === 'SUCCESS' ? 'Completed' : paymentStatus === 'FAILED' ? 'Failed' : 'Pending'
-        });
-
-
-
-        await newPayment.save();
-
-
-        const responseData = {
-            orderId: response.orderId,  // Include relevant fields from Cashfree response
-            paymentStatus: response.status,
-            paymentId: response.paymentId,
-            paymentMode: response.paymentMode
-        };
-
-
-
-
-        success_response( res,200, "Payment record created successfully", responseData);
+        success_response( res,200, "Payment record created successfully", data);
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
         fail_response( res , 500, "Internal server error");
