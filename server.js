@@ -11,7 +11,7 @@ import os from 'os';
 
 dotenv.config();
 
-const numCPUs = os.cpus().length; // Get the number of CPU cores
+const numCPUs = os.cpus().length; 
 
 const createServer = () => {
     const app = express();
@@ -25,7 +25,7 @@ const createServer = () => {
     }));
 
     const limiter = rateLimit({
-        windowMs: 15 * 60 * 1000, // 15 minutes
+        windowMs: 15 * 60 * 1000, 
         max: 100
     });
     app.use(limiter);
@@ -52,18 +52,15 @@ if (cluster.isMaster) {
     // Fork workers.
     console.log(`Master ${process.pid} is running`);
 
-    // Fork workers based on the number of CPU cores
     for (let i = 0; i < numCPUs; i++) {
         cluster.fork();
     }
 
     cluster.on('exit', (worker, code, signal) => {
         console.log(`Worker ${worker.process.pid} died`);
-        // Optionally restart the worker
         cluster.fork();
     });
 
-    // Handle shutdown signals
     const shutdown = async(signal) => {
         console.log(`${signal} signal received: closing HTTP server`);
         try {
@@ -80,7 +77,6 @@ if (cluster.isMaster) {
     process.on("SIGTERM", () => shutdown("SIGTERM"));
 
 } else {
-    // Workers can share the same port
     const app = createServer();
 
     const port = process.env.NODE_ENV === 'production' ?
