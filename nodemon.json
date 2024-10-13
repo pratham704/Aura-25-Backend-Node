@@ -1,0 +1,27 @@
+{
+    "watch": [
+        "controllers",
+        "middlewares",
+        "models",
+        "routes",
+        "services",
+        "validators",
+        "config",
+        "utils",
+        "index.js",
+        "app.js"
+    ],
+    "ext": "js,json",
+    "ignore": [
+        "public",
+        "views",
+        "tests",
+        "docs",
+        "node_modules"
+    ],
+    "exec": "node index.js",
+    "env": {
+        "NODE_ENV": "development"
+    },
+    "verbose": true
+}

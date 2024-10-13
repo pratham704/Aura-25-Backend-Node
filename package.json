@@ -1,0 +1,33 @@
+{
+    "name": "starter-mysql2",
+    "version": "1.0.0",
+    "description": "This Node.js project follows a modular architecture to facilitate scalability and maintainability. It utilizes ES6 modules, environment-based configuration, and a comprehensive set of tools and libraries to build a robust application.",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "nodemon index.js",
+        "dev": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "express-rate-limit": "^7.4.0",
+        "helmet": "^7.1.0",
+        "joi": "^17.13.3",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.5.3",
+        "morgan": "^1.10.0",
+        "mysql": "^2.18.1",
+        "mysql2": "^3.11.0",
+        "nodemon": "^3.1.4",
+        "uuid": "^10.0.0"
+    }
+}

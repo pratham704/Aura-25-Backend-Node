@@ -1,0 +1,127 @@
+config/
+│
+├── env/
+│   ├── development.js
+│   ├── production.js
+│   ├── test.js
+│
+├── config.js
+├── constants.js
+└── database.js
+│
+controllers/
+│
+├── auth/
+│   ├── auth.student.controller.js
+│
+├── student.controller.js
+│
+middlewares/
+│
+├── auth.middleware.js
+├── errorHandlers.js
+└── validate.middleware.js
+│
+models/
+│
+├── student.model.js
+└── teacher.model.js
+│
+node_modules/
+│
+routes/
+│
+└── student.routes.js
+│
+services/
+│
+├── auth.service/
+│   ├── auth.service.student.js
+│
+├── student.service.js
+├── teacher.service.js
+└── z.create.table.query.js
+│
+tests/
+│
+utils/
+│
+├── auth/
+│   ├── bcrypt.password.js
+│   ├── jwt.utils.js
+│
+├── responses/
+│   ├── mysql.ErrorMap.js
+│   ├── responses.js
+│   └── status.messages.js
+│
+validators/
+│
+└── student.validator.js
+│
+.env
+.gitignore
+env.load.js
+index.js
+nodemon.json
+package-lock.json
+package.json
+README.md
+server.js
+zero.txt
+
+
+.env file content
+
+# Define phase
+NODE_ENV=development
+
+# Development phase
+DEV_PORT=4000
+DEV_DB_HOST=localhost
+DEV_DB_USER=devuser
+DEV_DB_NAME=devdb
+DEV_DB_PASS=devpassword
+
+# Production phase
+PROD_PORT=80
+PROD_DB_HOST=prod-db-host
+PROD_DB_USER=prod-user
+PROD_DB_NAME=prod-db
+PROD_DB_PASS=prod-password
+
+# Testing phase
+TEST_PORT=3001
+TEST_DB_HOST=localhost
+TEST_DB_USER=testuser
+TEST_DB_NAME=testdb
+TEST_DB_PASS=testpassword
+
+# JWT Tokens
+JWT_SECRET_KEY_DEV=devsecretkey
+JWT_SECRET_KEY_PROD=prodsecretkey
+JWT_SECRET_KEY_TEST=testsecretkey
+
+# For CORS
+ALLOWED_ORIGINS=http://example.com,http://anotherdomain.com,http://localhost:3000,http://localhost:5000,http://localhost:3001,http://localhost:4000
+
+
+
+ ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+flow index.js -> routes -> middlewares(auth or validations  then next()) -> controllers -> services(model interactions) -> errors or obj responses during runtime in db , categoriase and send status and error code or succest code and message and then -> controllers -> use responses utils ->
+
+start by commands 
+
+npm init -y
+in package.json add "type":"module" for es 6 
+then start by nodemon index.js or nodemon server.js (for vertical scalling appplications only)
+
+npm i bcrypt bcryptjs cookie-parser cors dotenv express express-rate-limit helmet joi jsonwebtoken mysql mysql2 nodemon uuid
+
+
+
+
+
