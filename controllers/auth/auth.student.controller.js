@@ -5,7 +5,7 @@ import {
 
 import User from "../../models/users.model.js";
 import * as jwt from "../../utils/auth/jwt.utils.js"
-import * as validator from "../../validators/validator.js"
+import * as validator from "../../utils/validators/validator.js"
 
 
 export const createStudent = async (req, res) => {
