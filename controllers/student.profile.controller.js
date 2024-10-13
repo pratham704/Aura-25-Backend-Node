@@ -58,6 +58,7 @@ const getProfileChecker = async (req, res) => {
 
         success_response(res, 200, "Success", {
             "missing": missingFields,
+            "completed": data,
             "paymentStatus": data.paymentStatus
 
         },
@@ -75,20 +76,20 @@ const editStudentProfile = async (req, res) => {
     try {
         const { id } = jwt.getData(req);
         const user = await User.findOne({ _id: id });
-        
-        if (!user)  return fail_response(res, 404, "User not found");
+
+        if (!user) return fail_response(res, 404, "User not found");
 
         const updates = req.body;
         if (updates.email) user.email = updates.email;
-        if (updates.firebaseUID)  user.firebaseUID = updates.firebaseUID;
+        if (updates.firebaseUID) user.firebaseUID = updates.firebaseUID;
         if (typeof updates.paymentStatus === 'boolean') user.paymentStatus = updates.paymentStatus;
-        
+
         if (updates.profileDetails) {
             if (updates.profileDetails.name) user.profileDetails.name = updates.profileDetails.name;
             if (updates.profileDetails.college) user.profileDetails.college = updates.profileDetails.college;
             if (updates.profileDetails.phoneNumber) user.profileDetails.phoneNumber = updates.profileDetails.phoneNumber;
             if (updates.profileDetails.imageURL) user.profileDetails.imageURL = updates.profileDetails.imageURL;
-            if (updates.profileDetails.collegeID)  user.profileDetails.collegeID = updates.profileDetails.collegeID;
+            if (updates.profileDetails.collegeID) user.profileDetails.collegeID = updates.profileDetails.collegeID;
             if (updates.profileDetails.collegeIdUrl) user.profileDetails.collegeIdUrl = updates.profileDetails.collegeIdUrl;
         }
         await user.save();
@@ -118,5 +119,5 @@ const getAllStudents = async (req, res) => {
 
 
 
-export { getAllStudents, getStudentProfile, getProfileChecker , editStudentProfile }
+export { getAllStudents, getStudentProfile, getProfileChecker, editStudentProfile }
 
