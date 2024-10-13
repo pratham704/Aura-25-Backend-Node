@@ -15,7 +15,8 @@ const app = express();
 app.use(morgan('dev'))
 app.use(express.json());
 app.use(helmet());
-app.use(cors({ origin: process.env.ALLOWED_ORIGINS || '*'}));
+// app.use(cors({ origin: process.env.ALLOWED_ORIGINS || '*'}));
+app.use(cors());
 
 // const limiter = rateLimit({
 //     windowMs: 15 * 60 * 1000, 

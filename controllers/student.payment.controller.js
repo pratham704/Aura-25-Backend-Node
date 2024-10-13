@@ -35,10 +35,10 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
         };
         const response = await Cashfree.PGCreateOrder("2023-08-01", request);
         console.log(response.data);
-        success_response(200 , "Order id generated" , response.data)
+        success_response( res, 200 , "Order id generated" , response.data)
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
-        fail_response(500 , "Internal server error")
+        fail_response(res , 500 , "Internal server error")
     }
 };
 
@@ -46,6 +46,7 @@ const verifyOrder = async (req, res) => {
     try {
         const { orderId } = req.body;
         const response = await Cashfree.PGOrderFetchPayments("2023-08-01", orderId);
+        console.log(response.data)
         const { id, email } = jwt.getData(req);
 
         const paymentStatus = response.status; 
@@ -57,12 +58,25 @@ const verifyOrder = async (req, res) => {
             status: paymentStatus === 'SUCCESS' ? 'Completed' : paymentStatus === 'FAILED' ? 'Failed' : 'Pending'
         });
 
+
+
         await newPayment.save();
 
-        success_response(200, "Payment record created successfully", response);
+
+        const responseData = {
+            orderId: response.orderId,  // Include relevant fields from Cashfree response
+            paymentStatus: response.status,
+            paymentId: response.paymentId,
+            paymentMode: response.paymentMode
+        };
+
+
+
+
+        success_response( res,200, "Payment record created successfully", responseData);
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
-        fail_response(500, "Internal server error");
+        fail_response( res , 500, "Internal server error");
     }
 };
 
