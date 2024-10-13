@@ -41,21 +41,46 @@ export const createStudent = async (req, res) => {
 
 
 export const loginStudent = async (req, res) => {
-    const { email, firebaseUID } = req.body;
+    const { email, firebaseUID  , name } = req.body;
 
     if(!email || !firebaseUID)  return fail_response(res, 400, "Invalid student data");
     if (!validator.isValidEmail(email)) return fail_response(res, 400, "Ivalid email")
-    //  if (!validator.isValidFirebaseUID(firebaseUID)) return fail_response(res, 400, "Ivalid Firebase uuid")
+     if (!validator.isValidFirebaseUID(firebaseUID)) return fail_response(res, 400, "Ivalid Firebase uuid")
+    
     
     try {
-        const student = await User.findOne({ email, firebaseUID });
+        let student = await User.findOne({ email, firebaseUID });
+
+        let statusCode = 200;  
+
         if (!student) {
-            return fail_response(res, 404, "Student not found or invalid credentials");
+            console.log("Student not found, creating a new student.");
+
+            const newStudentData = {
+                email,
+                firebaseUID,
+                profileDetails: {
+                    name: name, 
+                    college: "",
+                    phoneNumber: "",
+                    imageURL: "",
+                },
+                paymentStatus: false
+            };
+
+            student = new User(newStudentData);
+            await student.save();
+
+            console.log("New student created:", student);
+            statusCode = 201; 
         }
+
         const token = jwt.generateToken({ id: student._id, email: student.email });
-        success_response(res, 200, "Login successful", {
+
+        success_response(res, statusCode, statusCode === 201 ? "Student created and logged in" : "Login successful", {
             "access_token": token
         });
+
     } catch (error) {
         console.error("Error during student login:", error.message);
         fail_response(res, 500, "Server error", error.message);
