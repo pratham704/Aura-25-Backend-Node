@@ -13,7 +13,8 @@ const userSchema = new Schema({
     collegeID: { type: String },     
     collegeIdUrl: { type: String }   
   },
-  paymentStatus: { type: Boolean, default: false } 
+  paymentStatus: { type: Boolean, default: false } ,
+  role: { type: Number, default: 0 } ,
 }, { timestamps: true });
 
 

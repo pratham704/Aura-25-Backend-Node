@@ -9,6 +9,7 @@ import payment from "./routes/payment.routes.js"
 import { connectDB, disconnectDB } from "./config/database.js";
 import morgan from "morgan";
 import { authenticate } from "./middlewares/auth.middleware.js";
+import qr from "./routes/qr.routes.js"
 dotenv.config();
 
 const app = express();
@@ -38,7 +39,7 @@ app.use((err, req, res, next) => {
 app.use("/api/entrysystem", studentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/payment",authenticate,  payment);
-
+app.use("/api/qr",authenticate,  qr);
 app.get('/', (req, res) => {
     res.send('Connected to Db boss');
 });

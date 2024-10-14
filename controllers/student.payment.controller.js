@@ -23,7 +23,7 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
         _id: id
     })
 
-    if(data.paymentStatus) return success_response(200 , "Already Done" ,data )
+    if(data.paymentStatus) return success_response(res, 200 , "Already Done" ,data )
 
     try {
         const request = {
@@ -32,7 +32,7 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
             order_id: await generateOrderId(),
             customer_details: {
                 customer_id: data._id,
-                customer_phone: data.profileDetails.phoneNumber || '8073970294',
+                customer_phone: '8073970294',
                 customer_name: data.profileDetails.name || 'Student',
                 customer_email: data.email
             },
@@ -49,8 +49,6 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
         await newPayment.save();
 
-
-        const encryptedCode = encrypt(id); 
         success_response( res, 200 , "Order id generated" , response.data)
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
