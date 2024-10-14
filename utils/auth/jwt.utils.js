@@ -9,6 +9,7 @@ export const generateToken = (payload) => {
 export const verifyToken = (token) => {
     try {
         return jwt.verify(token, jwtSecretKey.jwtSecret);
+        
     } catch (error) {
         throw new Error('Invalid or expired token');
     }

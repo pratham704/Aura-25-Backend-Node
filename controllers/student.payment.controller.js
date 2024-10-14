@@ -22,17 +22,24 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
     if(data.paymentStatus) return success_response(200 , "Already Done" ,data )
 
     try {
-        const request = {
-            order_amount: 300.00,
-            order_currency: "INR",
-            order_id: await generateOrderId(),
-            customer_details: {
-                customer_id: data._id,
-                customer_phone: data.profileDetails.phoneNumber || '8073970294',
-                customer_name: data.profileDetails.name || 'Student',
-                customer_email: data.email
+        let request = {
+            "order_amount": 1.00,
+            "order_currency": "INR",
+            "order_id": await generateOrderId(),
+            "customer_details": {
+                "customer_id": "webcodder01",
+                "customer_phone": "9999999999",
+                "customer_name": "Web Codder",
+                "customer_email": "webcodder@example.com"
             },
-        };
+        }
+        // Cashfree.PGCreateOrder("2023-08-01", request).then(response => {
+        //     console.log(response.data);
+        //     res.json(response.data);
+
+        // }).catch(error => {
+        //     console.error(error.response.data.message);
+        // })
         const response = await Cashfree.PGCreateOrder("2023-08-01", request);
         console.log(response.data);
 
