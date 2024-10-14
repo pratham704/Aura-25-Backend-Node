@@ -4,7 +4,7 @@ import QrData from "./models/qrData.model.js";
 import EntryExit from "./models/entryExit.model.js";
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://nshriram1326:vxdQ7yYDz74A9TMR@cluster0.usl45.mongodb.net/checkmate?retryWrites=true&w=majority', {
+mongoose.connect(process.env.TEST_MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
