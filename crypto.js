@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js';
 
 const password = 'gitaura'; 
-const plaintext = '670bae3738f6a9a5ba6b6a90';
+const plaintext = '670a1b65847c0d3f9c57b70c';
 
 const salt = CryptoJS.lib.WordArray.random(128 / 8); 
 const keySize = 256 / 32;

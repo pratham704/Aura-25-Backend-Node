@@ -4,6 +4,10 @@ import * as jwt from "../utils/auth/jwt.utils.js"
 import User from '../models/users.model.js';
 import { success_response , fail_response } from '../utils/responses/responses.js';
 import PaymentModel from '../models/payments.model.js';
+import { encrypt } from '../utils/payment/encrypt.util.js';
+import QrData from '../models/qrData.model.js';
+import QRCode from 'qrcode'; // Import QRCode library
+import EntryExit from '../models/entryExit.model.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -22,24 +26,17 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
     if(data.paymentStatus) return success_response(200 , "Already Done" ,data )
 
     try {
-        let request = {
-            "order_amount": 1.00,
-            "order_currency": "INR",
-            "order_id": await generateOrderId(),
-            "customer_details": {
-                "customer_id": "webcodder01",
-                "customer_phone": "9999999999",
-                "customer_name": "Web Codder",
-                "customer_email": "webcodder@example.com"
+        const request = {
+            order_amount: 1.00,
+            order_currency: "INR",
+            order_id: await generateOrderId(),
+            customer_details: {
+                customer_id: data._id,
+                customer_phone: data.profileDetails.phoneNumber || '8073970294',
+                customer_name: data.profileDetails.name || 'Student',
+                customer_email: data.email
             },
-        }
-        // Cashfree.PGCreateOrder("2023-08-01", request).then(response => {
-        //     console.log(response.data);
-        //     res.json(response.data);
-
-        // }).catch(error => {
-        //     console.error(error.response.data.message);
-        // })
+        };
         const response = await Cashfree.PGCreateOrder("2023-08-01", request);
         console.log(response.data);
 
@@ -51,6 +48,9 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
         });
 
         await newPayment.save();
+
+
+        const encryptedCode = encrypt(id); 
         success_response( res, 200 , "Order id generated" , response.data)
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
@@ -78,4 +78,62 @@ const verifyOrder = async (req, res) => {
 };
 
 
-export {verifyOrder , createOrder}
+const addData = async (req, res) => {
+    try {
+        const { id, email } = jwt.getData(req);
+        
+        const userData = await User.findOne({ _id: id });
+        if (!userData) {
+            return fail_response(res, 404, "User not found");
+        }
+
+        const paymentData = await PaymentModel.findOneAndUpdate(
+            { userId: id },
+            { status: "Success" }, 
+            { new: true } 
+        );
+
+        await User.findOneAndUpdate(
+            { _id: id },
+            { paymentStatus: true }, 
+            { new: true } 
+        );
+
+
+        const encryptedCode = encrypt(id); 
+
+        const qrUrl = await QRCode.toDataURL(encryptedCode); 
+
+
+        const qrData = new QrData({
+            userId: id,
+            qrUrl: qrUrl,
+            vip: false, 
+            code: encryptedCode 
+        });
+
+        await qrData.save();
+
+
+        const entryExit = new EntryExit({
+            userId: id,
+            currentStatus : false , 
+            code: 0 
+        });
+
+        await entryExit.save();
+
+        const finaldata = await User.findOne({ _id: id });
+
+        success_response(res, 200, "Payment record created successfully",  finaldata);
+    } catch (error) {
+        console.error(error.response?.data?.message || error.message);
+        fail_response(res, 500, "Internal server error");
+    }
+};
+
+
+
+
+
+export {verifyOrder , createOrder  , addData}
