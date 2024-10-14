@@ -13,7 +13,6 @@ mongoose.connect(process.env.TEST_MONGO_URI, {
 
 async function clearDatabase() {
   try {
-    // Delete all documents from the User and Payment collections
     await Payment.deleteMany({});
     await QrData.deleteMany({});
     await EntryExit.deleteMany({});
