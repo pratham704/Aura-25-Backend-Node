@@ -55,9 +55,6 @@ app.use("/api/entrysystem", studentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/payment",authenticate,  payment);
 app.use("/api/qr",  qr);
-app.get('/', (req, res) => {
-    res.send('Connected to Db boss');
-});
 
 
 
