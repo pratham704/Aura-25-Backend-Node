@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c672153b.css",
+    "main.js": "/static/js/main.6ef6963b.js",
+    "static/js/867.e67d5bf0.chunk.js": "/static/js/867.e67d5bf0.chunk.js",
+    "static/js/453.3b153743.chunk.js": "/static/js/453.3b153743.chunk.js",
+    "static/media/InterVariable-Italic.woff2": "/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
+    "static/media/InterVariable.woff2": "/static/media/InterVariable.a0e477f2f1f9d2376fde.woff2",
+    "static/media/00_earthmap1k.jpg": "/static/media/00_earthmap1k.f3d3516ad626def9203b.jpg",
+    "static/media/primeicons.svg": "/static/media/primeicons.6ed59f962963a4a73af2.svg",
+    "static/media/04_earthcloudmap.jpg": "/static/media/04_earthcloudmap.6a88571b4c4ffad8cccd.jpg",
+    "static/media/05_earthcloudmaptrans.jpg": "/static/media/05_earthcloudmaptrans.e3c7cd460422bcf1696a.jpg",
+    "static/media/02_earthspec1k.jpg": "/static/media/02_earthspec1k.de08296c47c6b9edd5c0.jpg",
+    "static/media/01_earthbump1k.jpg": "/static/media/01_earthbump1k.f4ea4c67857efea7aef6.jpg",
+    "static/media/primeicons.eot": "/static/media/primeicons.ff0c4cd79b2ffca2de54.eot",
+    "static/media/primeicons.woff": "/static/media/primeicons.8931fda1930c3bd21e96.woff",
+    "static/media/03_earthlights1k.jpg": "/static/media/03_earthlights1k.d55d266bc31b06e18808.jpg",
+    "static/media/primeicons.ttf": "/static/media/primeicons.a5c2a53d1ff7a9ff5933.ttf",
+    "static/media/primeicons.woff2": "/static/media/primeicons.024b32cc7bf399b1a847.woff2",
+    "index.html": "/index.html",
+    "main.c672153b.css.map": "/static/css/main.c672153b.css.map",
+    "main.6ef6963b.js.map": "/static/js/main.6ef6963b.js.map",
+    "867.e67d5bf0.chunk.js.map": "/static/js/867.e67d5bf0.chunk.js.map",
+    "453.3b153743.chunk.js.map": "/static/js/453.3b153743.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c672153b.css",
+    "static/js/main.6ef6963b.js"
+  ]
+}

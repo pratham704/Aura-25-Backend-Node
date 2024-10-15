@@ -11,6 +11,13 @@ import morgan from "morgan";
 import { authenticate } from "./middlewares/auth.middleware.js";
 import qr from "./routes/qr.routes.js"
 dotenv.config();
+import path from 'path';
+
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(
+    import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const app = express();
 app.use(morgan('dev'))
@@ -30,6 +37,14 @@ app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || "Internal Server Error";
     res.status(statusCode).json({ message });
+});
+
+
+const rootDirectory = path.resolve(__dirname, './build');
+app.use(express.static(rootDirectory));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(rootDirectory, 'index.html'));
 });
 
 
