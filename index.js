@@ -40,12 +40,12 @@ app.use((err, req, res, next) => {
 });
 
 
-const rootDirectory = path.resolve(__dirname, './build');
-app.use(express.static(rootDirectory));
+// const rootDirectory = path.resolve(__dirname, './build');
+// app.use(express.static(rootDirectory));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(rootDirectory, 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(rootDirectory, 'index.html'));
+// });
 
 
 
