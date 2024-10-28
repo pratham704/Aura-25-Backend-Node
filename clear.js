@@ -2,20 +2,25 @@ import mongoose from "mongoose";
 import Payment from "./models/payments.model.js";
 import QrData from "./models/qrData.model.js";
 import EntryExit from "./models/entryExit.model.js";
+import User from "./models/users.model.js";
+import dotenv from 'dotenv'
+import DynamicQr from "./models/dynamicqr.model.js";
+import StudentModel from "./models/student.model.js";
+
+
+dotenv.config()
 
 // Connect to MongoDB
-mongoose.connect(process.env.TEST_MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log("Connected to MongoDB"))
-.catch(err => console.log("Failed to connect to MongoDB", err));
+const conn = await mongoose.connect('mongodb+srv://nshriram1326:vxdQ7yYDz74A9TMR@cluster0.usl45.mongodb.net/checkmate?retryWrites=true&w=majority')
 
 async function clearDatabase() {
   try {
     await Payment.deleteMany({});
     await QrData.deleteMany({});
     await EntryExit.deleteMany({});
+    await User.deleteMany({});
+    await DynamicQr.deleteMany({});
+    await StudentModel.deleteMany({});
 
     console.log("All User and Payment documents have been deleted.");
   } catch (error) {
