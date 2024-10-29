@@ -59,8 +59,6 @@ app.use("/api/qr",  qr);
 
 
 
-
-
 // starting the server 
 const port = process.env.NODE_ENV === 'production' ?
     process.env.PROD_PORT :

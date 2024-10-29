@@ -116,8 +116,34 @@ const getAllStudents = async (req, res) => {
 
 
 
+const getSingleStudent = async (req, res) => {
+    try {
+
+
+        const id = req.body.id
+
+        console.log(id)
+        const students = await User.find({
+            _id : id
+
+        });
+        success_response(res, 200, "success", students);
+    } catch (error) {
+        fail_response(res, 500, "success");
+    }
+};
 
 
 
-export { getAllStudents, getStudentProfile, getProfileChecker, editStudentProfile }
+
+
+
+
+
+
+
+
+
+
+export { getAllStudents, getStudentProfile, getProfileChecker, editStudentProfile  , getSingleStudent}
 

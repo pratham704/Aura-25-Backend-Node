@@ -60,4 +60,7 @@ router.get("/", profile.getAllStudents);
 router.get("/health_check/", health.healthCheck);
 
 
+router.post("/singleStudent/", profile.getSingleStudent);
+
+
 export default router;
