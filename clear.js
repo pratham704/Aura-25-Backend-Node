@@ -11,7 +11,7 @@ import StudentModel from "./models/student.model.js";
 dotenv.config()
 
 // Connect to MongoDB
-const conn = await mongoose.connect('mongodb+srv://nshriram1326:vxdQ7yYDz74A9TMR@cluster0.usl45.mongodb.net/checkmate?retryWrites=true&w=majority')
+const conn = await mongoose.connect('')
 
 async function clearDatabase() {
   try {
